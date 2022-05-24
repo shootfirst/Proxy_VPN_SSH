@@ -126,13 +126,45 @@ ssh -p 22 user@host
 
 成功连接，若想退出，则输入exit
 
+#### 远程操作
+
+ssh 用户@host 'command'
+
 ##### 本地转发
 
-由本地服务器的某个端口，转发到远程服务器的某个端口，就是把发送到本地端口的请求转发到目标端口，格式如下：
+由本地服务器的某个端口，转发到远程服务器的某个端口，就是把发送到本地端口的请求转发到目标端口，这时访问本地此端口portb相当于访问目标地址hostc的目标端口portc
 
-ssh -L 本地网卡地址：本地端口：目标地址：目标端口 用户@目标地址
+ssh -L hostb：portb：hostc：portc 用户@hostc
+
+本地端口通过跳板映射到其他机器，hosta上启动porta端口，通过hostb转发到hostc的portc上，在hosta上运行。此时访问hosta的porta相当于访问hostc的portc
+
+ssh -L hosta：porta：hostc：portc 用户@hostb
 
 #### 远程转发
+
+让远端启动端口，把远端端口的数据传到本地。hosta将自己可以访问的hostb的portb暴露给外网服务器hostc的portc，在hosta上运行，此时相当于hosta让hostb和hostc可以进行通信，hosta起中间作用
+
+ssh -R hostc：portc：hostb：portb 用户@hostc
+
+此时链接hostc的portc就相当于链接hostb的portb。使用时需要修改hostc的/etc/ssh/sshd_config文件，添加 GatewayPorts yes
+
+此时相当于内网穿透，比如hosta和hostb是同一个内网下的两台可以互相访问的机器，hostc是外网跳板，hostc不能访问hosta，但hosta可以访问hostc。那么通过内网hosta运行此命令，创建hostc端口监听，把该端口所有数据转发给我hosta，我再转发给hostb，注意hostb和hosta也可以是同一台机器，此时相当于内网hosta把自己可访问的端口暴露给外网hostc访问
+
+#### 本地转发
+
+本地转发就是把发送到本地的某个端口请求转发到远程的某台机器上面
+
+ssh -L [本地地址:]本地端口：远程地址：远程端口 远程用户@远程地址
+
+#### 远程转发
+
+远程转发就是把发给远程机器的某个端口请求，转发到本地的机器上面
+
+ssh -R [远程地址:]远程端口：本地地址：本地端口 远程用户@远程地址
+
+
+
+
 
 
 
