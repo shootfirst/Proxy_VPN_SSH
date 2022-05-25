@@ -172,6 +172,89 @@
 
     ifconfig用于查看和配置网络接口地址和参数，机器重启后配置就不存在了，想永久修改要修改网卡配置文件。
     
+    常见使用：
+    
+    + 查看处于激活状态的网卡：ifconfig 
+    
+    + 查看所有网卡：ifconfig -a
+    
+    + 查看特定网卡信息：ifconfig 网卡名称
+    
+    + 配置ip地址： ifconfig 网卡名称 ip地址
+    
+    + 关闭网卡：ifconfig 网卡名称 down
+    
+    + 开启网卡：ifconfig 网卡名称 up
+    
+## netstat
+    
+    netstat用来打印linux中的网络状态信息，如开启的端口，在为哪些用户服务，还显示系统路由表，网络接口状态
+    
+    常见使用
+    
+    + 打印内置路由表：netstat -r
+    
+    + 查看所有tcp端口：netstat -at/ta
+    
+    + 查看所有udp端口：netstat -au/ua
+    
+    + 查看所有端口：netstat -a
+    
+    + 查看所有网络接口：netstat -i
+    
+## telnet
+    
+    telnet用于登录远程主机和管理（测试ip端口是否连通），但由于telnet是明文，逐渐被ssh替代
+    
+    telnet 远程主机ip地址
+    
+    出现这种情况：
+    
+    telnet: connect to address 192.168.188.132: Connection refused
+    telnet: Unable to connect to remote host
+    
+    确认ip地址是否正确？
+    确认ip地址对应的主机是否已经开机？
+    如果主机已经启动，确认路由设置是否设置正确？（使用route命令查看）
+    如果主机已经启动，确认主机上是否开启了telnet服务？（使用netstat命令查看，TCP的23端口是否有LISTEN状态的行）
+    如果主机已经启动telnet服务，确认防火墙是否放开了23端口的访问？（使用iptables-save查看）
+    
+    
+    
+## ping
+  
+    测试主机之间的连通性，基于icmp协议，windows的ping一般发出四个请求就结束，而linux不会停，除非-c参数确定次数
+    
+    常见使用：
+    
+    + 确定ping的次数：ping ip地址 -c 次数
+    
+    
+## route
+    
+    显示并且设置linux的静态路由表，注意不会永久保存，可以在/etc/rc.local文件中加入route命令实现永久保存。在Linux系统中设置路由通常是为了解决以下问题：该Linux系统在一个局域网中
+    ，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的ip地址设置为Linux机器的默认路由。
+    
+## nslookup
+
+    输入要查询的域名，返回其ip地址
+    
+## wget
+    
+    用来从指定的url下载文件，wget非常稳定，它在带宽很窄的情况下和不稳定网络中有很强的适应性，如果是由于网络的原因下载失败，wget会不断的尝试，直到整个文件下载完毕。如果是服务器打断
+    下载过程，它会再次联到服务器上从停止的地方继续下载。这对从那些限定了链接时间的服务器上下载大文件非常有用。
+    
+    wget支持HTTP，HTTPS和FTP协议，可以使用HTTP代理。所谓的自动下载是指，wget可以在用户退出系统的之后在后台执行。这意味这你可以登录系统，启动一个wget下载任务，然后退出系统，wget将在     后台执行直到任务完成，相对于其它大部分浏览器在下载大量数据时需要用户一直的参与，这省去了极大的麻烦。
+    
+    常见使用：
+    
+    + 下载单个文件：wget http://www.jsdig.com/testfile.zip
+    
+    + wget -O wordpress.zip http://www.jsdig.com/download.aspx?id=1080
+
+## curl
+    
+    
 
 
 ## ip
