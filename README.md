@@ -168,6 +168,8 @@
         ssh -R [远程地址:]远程端口：本地地址：本地端口 远程用户@远程地址
 
 
+
+
 ## ifconfig
 
     ifconfig用于查看和配置网络接口地址和参数，机器重启后配置就不存在了，想永久修改要修改网卡配置文件。
@@ -229,12 +231,6 @@
     
     + 确定ping的次数：ping ip地址 -c 次数
     
-    
-## route
-    
-    显示并且设置linux的静态路由表，注意不会永久保存，可以在/etc/rc.local文件中加入route命令实现永久保存。在Linux系统中设置路由通常是为了解决以下问题：该Linux系统在一个局域网中
-    ，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的ip地址设置为Linux机器的默认路由。
-    
 ## nslookup
 
     输入要查询的域名，返回其ip地址
@@ -250,12 +246,27 @@
     
     + 下载单个文件：wget http://www.jsdig.com/testfile.zip
     
-    + wget -O wordpress.zip http://www.jsdig.com/download.aspx?id=1080
+    + 下载并以不同的文件名保存：wget -O wordpress.zip http://www.jsdig.com/download.aspx?id=1080
+    
+    + wget限速下载：wget -c http://www.jsdig.com/testfile.zip
 
 ## curl
     
+    是一个利用URL规则在命令行下工作的文件传输工具。它支持文件的上传和下载，所以是综合传输工具，但按传统，习惯称curl为下载工具。
     
-
+    + 下载单个文件：curl "http://www.wangchujiang.com"
+    
+    + 选项-o将下载数据写入到指定名称的文件中，并使用--progress显示进度条：curl http://example.com/test.iso -o filename.iso --progress
+    
+    
+## route
+    
+    显示并且设置linux的静态路由表，注意不会永久保存，可以在/etc/rc.local文件中加入route命令实现永久保存。在Linux系统中设置路由通常是为了解决以下问题：该Linux系统在一个局域网中
+    ，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的ip地址设置为Linux机器的默认路由。
+    
+    常见使用：
+    
+    + 
 
 ## ip
 
