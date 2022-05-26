@@ -301,6 +301,17 @@
     ip是iproute2软件包中的强大网络配置工具，它能够替代传统的网络管理工具，如ifconfig和route，使用权限为root，几乎所有的linux发行版都支持这个命令。作用是操控linux主机的路由，
     网络设备、策略路由和隧道。
     
+    路由表相关：
+    
+    + 设置系统网关：ip route add default via 192.168.0.1
+    
+    + 查看路由信息：ip route list
+    
+    + 设置某个网段的网关： ip route 10.1.1.1/24 via 10.1.2.2 dev ens33
+    
+    + 删除某网段网关：ip route del 10.1.1.1/24
+    
+    + 删除网段：iproute delete 10.1.1.1/24
 
 
 
