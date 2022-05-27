@@ -303,15 +303,39 @@
     
     路由表相关：
     
-    + 设置系统网关：ip route add default via 192.168.0.1
+    + 添加路由：ip route add TARGET via GW dev IFACE
+      
+      TARGET可以是：
+
+      主机路由：具体IP地址
+
+      网络路由：NETWORK/MASK
     
-    + 查看路由信息：ip route list
+    + 添加网关：ip route add default via GW dev IFACE
     
-    + 设置某个网段的网关： ip route 10.1.1.1/24 via 10.1.2.2 dev ens33
+    + 删除路由：ip del TARGET
     
-    + 删除某网段网关：ip route del 10.1.1.1/24
+    路由策略相关：
     
-    + 删除网段：iproute delete 10.1.1.1/24
+    + ip rule：查看路由策略
+    
+    
+    ip地址相关：
+    
+    + 给网卡添加ip地址：ip addr add TARGET dev IFACE
+    
+    secondary：为输出的数据包选择默认源地址时，内核不使用这个地址。如果一个设备已经有了一个地址，又给它设置了同一网段的不同地址，第二个地址就成为从(secondary)地址。例如：eth0已经
+    有一个地址192.168.1.108/24 ，如果又给它一个地址192.168.1.3/24，192.168.1.3/24 的就会被内核标记为从地址。
+    
+    在每一个接口上可以配置多个Primary地址和多个Secondary地址。
+    
+    当删除一个Primary地址时，所有相关的Secondary地址也被删除。但通过/proc可以配置一个选项，在当前Primary地址被删除时可以将Secondary地址提升为Primary地址。
+    
+    网卡相关：
+    
+    打开网卡：ip link set ens33 up
+    
+    
 
 
 
